@@ -1,0 +1,81 @@
+---
+config:
+  theme: neutral
+---
+classDiagram
+    class User {
+        - String userId
+        - String email
+        + String getUserId()
+        + void setUserId(String userId)
+        + String getEmail()
+        + void setEmail(String email)
+        + void submitBill(MedicalBill bill)
+        + List<MedicalProcedure> searchMedicalPrices(SearchCriteria criteria)
+        + void comparePrices(List<MedicalProcedure> prices)
+        + float makeCostPrediction(MedicalProcedure service, float cost)
+    }
+    class SearchCriteria {
+        - String location
+        - String procedureName
+        - String insuranceProvider
+        + String getLocation()
+        + String getProcedureName()
+        + String getInsuranceProvider()
+        + void setCriteria(String location, String procedureName, String insuranceProvider)
+    }
+    class MedicalProcedure {
+        - String procedureId
+        - String name
+        - String description
+        - float cost
+        + String getProcedureId()
+        + void setProcedureId(String procedureId)
+        + String getDescription()
+        + void setDescription(String description)
+        + String getName()
+        + void setName(String name)
+        + float getPricing()
+        + float getPredictedCost()
+        + String getCost()
+    }
+    class MedicalFacility {
+        - String facilityId
+        - String name
+        - String location
+        - List<MedicalProcedure> medicalProcedures
+        + String getFacilityId()
+        + void setFacilityId(String facilityId)
+        + String getLocation()
+        + void setLocation(String location)
+        + List<MedicalProcedure> getMedicalProcedures()
+        + String getName()
+        + void setName(String name)
+        + void setMedicalProcedures(List<MedicalProcedure> procedures)
+        + void addMedicalProcedure(MedicalProcedure newProcedure)
+    }
+    class MedicalBill {
+        - String billId
+        - String userId
+        - List<MedicalProcedure> procedures
+        + String getBillId()
+        + void setBillId(String billId)
+        + String getUserId()
+        + void setUserId(String userId)
+        + List<MedicalProcedure> getProcedures()
+    }
+    class BillAnalysis {
+        - String analysisId
+        - String billId
+        - String details
+        - float comparisonWithAvg
+        + void generateReport()
+    }
+    class Main {
+        + void main(String[] args)
+    }
+    User --> MedicalBill
+    User --> SearchCriteria
+    User --> MedicalProcedure
+    MedicalFacility --> MedicalProcedure
+    MedicalBill --> MedicalProcedure
